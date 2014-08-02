@@ -1,15 +1,24 @@
 <?php
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+if ( defined("IDENTIFY_DEBUG") ) {
+    if ( IDENTIFY_DEBUG == "1" ) {
+        ini_set('display_errors', 'On');
+        error_reporting(E_ALL);
+    }
+}
 
 require_once( __DIR__ . "/config.php" );
 require_once( __DIR__ . "/gpg_wrapper.php" );
 
-/*if ( isset( $_POST['response'] ) ) {
-    var_dump( $_POST );
+if ( IDENTIFY_PARTY != "SERVER" ) {
+    echo "Operation prohibited.";
     die();
-}*/
+}
+
+if ( isset( $_POST['response'] ) ) {
+    echo "Illegal argument:  'response'.";
+    die(); // To prevent infinite loops
+}
 
 if ( ! isset( $_POST['request'] ) ) {
     print "error";

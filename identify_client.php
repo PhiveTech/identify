@@ -1,10 +1,12 @@
 <?php
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
-
 require_once( __DIR__ . '/config.php' );
 require_once( __DIR__ . '/gpg_wrapper.php' );
+
+if ( IDENTIFY_PARTY != "CLIENT" ) {
+	echo "Operation prohibited.";
+	die();
+}
 
 /* Requires the following constants to be set:
    SQL_URI
@@ -98,7 +100,7 @@ function validateToken( $token, $remoteAddr, $httpUserAgent ) {
 		if ( $found ) {
 			break;
 		}
-		if ( $sqlIp == $_SERVER['REMOTE_ADDR'] && $sqlIp == $remoteAddr && $sqlHUA == $_SERVER['HTTP_USER_AGENT'] && $sqlHUA == $httpUserAgent ) {
+		if ( $sqlIp == $_SERVER['REMOTE_ADDR'] && ( $sqlIp == $remoteAddr || $sqlIp == "127.0.0.1" ) && $sqlHUA == $_SERVER['HTTP_USER_AGENT'] && $sqlHUA == $httpUserAgent ) {
 			$found = true;
 		}
 	}
