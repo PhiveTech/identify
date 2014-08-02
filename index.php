@@ -59,7 +59,7 @@ $response = array (
 );
 
 // echo serialize( $userDetails );
-$out = encrypt( $destinationKey, serialize( $userDetails ) );
+$out = encrypt( $destinationKey, serialize( $response ) );
 // echo $out;
 shell_exec( "rm -f " . escapeshellarg( $destinationKey ) );
 
