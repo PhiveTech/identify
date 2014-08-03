@@ -143,14 +143,18 @@ function makeRequest( $redirectLocation ) {
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
 $( function() {
-    $('<form>').attr( "action", "<?php echo IDENTIFY_SERVER_URL ?>" ).attr( "method", "post" )
-        .append( $("<input>").attr( "type", "hidden" ).attr( "name", "request" ).val( "<?php echo $out; ?>" ) )
-        .submit();
+	var form = $('#redirect');
+    form.attr( "action", "<?php echo IDENTIFY_SERVER_URL ?>" )
+    form.find('input').val( "<?php echo $out; ?>" )
+    form.submit();
 } );
 </script>
 </head>
 <body>
 <h1>Redirecting for verification...</h1>
+<form id="redirect" method="post">
+<input type="hidden" name="request"/>
+</form>
 </body>
 </html>
 

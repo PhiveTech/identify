@@ -83,9 +83,10 @@ $redir = str_replace( "\"", "\\\"", $redir );
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
 $( function() {
-    $('<form>').attr( "action", "<?php echo $redir; ?>" ).attr( "method", "post" )
-        .append( $("<input>").attr( "type", "hidden" ).attr( "name", "response" ).val( "<?php echo $out; ?>" ) )
-        .submit();
+    var form = $('#redirect');
+    form.attr( "action", "<?php echo $redir; ?>" )
+    form.find('input').val( "<?php echo $out; ?>" )
+    form.submit();
 } );
 </script>
 
@@ -98,5 +99,8 @@ if ( ! $hasCert ) {
     ?><h1>Hello, <?php echo $_SERVER['SSL_CLIENT_S_DN_CN']; ?>.  Please allow me to point you in the right direction...</h1><?php
 }
 ?>
+<form id="redirect" method="post">
+<input type="hidden" name="response"/>
+</form>
 </body>
 </html>
